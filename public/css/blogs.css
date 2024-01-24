@@ -1,0 +1,27 @@
+body{
+    background-color: rgb(173, 110, 15);
+    
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    background-color: bisque;
+    padding: 1%;
+    text-align: center;
+}
+
+ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    background-color: rgb(152, 209, 255);
+    
+    text-align: center;
+}
+
+li {
+    margin-top: 30px;
+}
+

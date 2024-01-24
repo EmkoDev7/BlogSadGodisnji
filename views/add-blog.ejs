@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/add-blog.css">
+    <title>Document</title>
+</head>
+<body>
+    <%- include("includes/nav.ejs") %>
+<div class="main">
+<form action="/blogs" method="post">
+    <label for="title">Naslov:</label>
+  <input type="text" id="title" name="title" required>
+    <br>
+  <label for="title">Username:</label>
+  <input type="text" id="username" name="username" required>
+  <br>
+  <label for="content">Sadrzaj:</label>
+  <textarea id="content" name="content" required></textarea>
+  <br>
+  <button type="submit">Add Blog</button>
+</form>
+</div>
+</body>
+</html>

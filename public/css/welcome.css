@@ -1,0 +1,16 @@
+body{
+    background-color: rgb(252, 218, 67);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    background-color: rgb(255, 0, 0);
+    padding: 1%;
+    text-align: center;
+}
