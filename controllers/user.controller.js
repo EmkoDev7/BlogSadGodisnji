@@ -5,6 +5,7 @@ const { v4 } = require('uuid');
 const fs = require('fs');
 const path = require('path');
 const p = path.join(__dirname, '..', 'data', 'blogs.json');
+const Blog = require('../modules/Blog')
 
 
 let blogs = [];
@@ -21,18 +22,10 @@ exports.renderAddBlogs = (req, res) => {
 exports.addBlogs = (req, res) => {
     const { title, username, content } = req.body;
 
-    const blog = {
-        id: v4(),
-        title,
-        username,
-        content,
-        comments: []
-    };
+    const newBlog = Blog.addBlog(title, username, content);
+    blogs.push(newBlog);
 
-    blogs.push(blog);
-
-
-    fs.writeFileSync(p, JSON.stringify(blogs, null, 2));
+    fs.writeFileSync(p, JSON.stringify(blogs));
 
     res.redirect('/blogs');
 }
@@ -54,17 +47,37 @@ exports.renderSingleBlog = (req, res) => {
 
 exports.addComments = (req, res) => {
     const blogId = req.params.id;
-    const blog = blogs.find(blog => blog.id === blogId);
 
-    if (blog) {
+    
+    const blogIndex = blogs.findIndex(blog => blog.id === blogId);
+
+    if (blogIndex !== -1) {
+        
         const { comment } = req.body;
-        blog.comments.push({ comment });
 
         
-        fs.writeFileSync(p, JSON.stringify(blogs, null, 2));
+        const blogInstance = new Blog(
+            blogs[blogIndex].id,
+            blogs[blogIndex].title,
+            blogs[blogIndex].username,
+            blogs[blogIndex].content,
+            blogs[blogIndex].comments
+        );
 
+       
+        blogInstance.addComment(comment);
+
+        
+        blogs[blogIndex] = blogInstance;
+
+      
+        fs.writeFileSync(p, JSON.stringify(blogs));
+
+       
         res.redirect(`/blogs/${blogId}`);
     } else {
+        
         res.status(404).send('Blog nije pronađen');
     }
 }
+
